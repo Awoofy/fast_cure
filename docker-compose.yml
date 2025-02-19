@@ -20,7 +20,6 @@ services:
     privileged: true  # USBデバイスアクセス用
     devices:
       - /dev/bus/usb:/dev/bus/usb  # Android実機デバッグ用
-    network_mode: "host"  # ホストネットワークを使用（開発の利便性のため）
     tty: true
     stdin_open: true
     command: /bin/bash
