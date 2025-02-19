@@ -1,11 +1,11 @@
 services:
   flutter_dev:
     build: 
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
     container_name: flutter_dev
     volumes:
-      - .:/workspace
+      - ..:/workspace
       - flutter-cache:/root/.pub-cache
       - flutter-gradle:/root/.gradle
       - android-sdk:/opt/android-sdk
