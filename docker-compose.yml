@@ -1,0 +1,35 @@
+services:
+  flutter_dev:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: flutter_dev
+    volumes:
+      - .:/workspace
+      - flutter-cache:/root/.pub-cache
+      - flutter-gradle:/root/.gradle
+      - android-sdk:/opt/android-sdk
+      - ~/.gitconfig:/root/.gitconfig:ro  # Gitの設定を共有
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ANDROID_SDK_ROOT=/opt/android-sdk
+      - CHROME_EXECUTABLE=/usr/bin/google-chrome
+    ports:
+      - "8080:8080"  # Flutter開発サーバー用
+      - "5037:5037"  # adb server用
+    privileged: true  # USBデバイスアクセス用
+    devices:
+      - /dev/bus/usb:/dev/bus/usb  # Android実機デバッグ用
+    network_mode: "host"  # ホストネットワークを使用（開発の利便性のため）
+    tty: true
+    stdin_open: true
+    command: /bin/bash
+    working_dir: /workspace
+
+volumes:
+  flutter-cache:
+    driver: local
+  flutter-gradle:
+    driver: local
+  android-sdk:
+    driver: local
